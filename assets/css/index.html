@@ -1,0 +1,118 @@
+<script type= 'text/javascript'>
+       
+       $(document).ready(function() {
+                     
+           $('#spinner').show();
+            $('#Showantenna').click(function () {
+                var selectedValue = $(this).val();
+                
+                 var ddl = $('#result_table tbody');
+                ddl.empty();
+                
+              $('#spinner').show();
+                
+                var selectedDate = '2017-05-13';
+                if($('#ShowantennaDate').val() !== ''){
+                    selectedDate = $('#ShowantennaDate').val();
+                }
+                
+                 $.ajax({ 
+                           type: "GET",
+                           crossDomain: true,
+                           dataType: "jsonp",
+                           url: "http://turing.une.edu.au/~srallaba/CodeIgniter5/api/Api_53/index_get?date=" + selectedDate,                                            success: function (result) {
+                        if (jQuery.isEmptyObject(result)) {
+                            var $tr = $('<tr>').append(
+                               $('<td colspan="4">').text('NO EVENTS FOUND')
+                              ).appendTo('#result_table tbody');
+                        }
+                        else {
+                            var foundevents = result['result_display'];
+                            if(foundevents === 'No record found !'){
+                                  var $tr = $('<tr>').append(
+                                   $('<td colspan="4">').text('NO EVENTS FOUND')
+                                   ).appendTo('#result_table tbody');
+                            }
+                            else{
+                                $.each(foundevents, function (i, item) {
+                                var row = '<tr>';
+                                row += '<td>' + item.antenna_name + '</td>';
+                                row += '<td>' +  item.leaves + '</td>';
+                                row += '<td>' + item.enters+ '</td>';
+                                row += '</tr>';
+                            
+                                ddl.append(row);
+                                });
+                        }}
+                           $('#spinner').hide();   
+                    }
+                    
+                });
+            });
+           
+                       
+           $('#reader').click(function () {
+                var selectedValue = $(this).val();
+                
+                 var ddl = $('#result_table_reader tbody');
+                ddl.empty();
+                
+            
+                 $('#spinner_reader').show();
+                var selectedDate = '2017-05-13';
+                if($('#ShowreaderDate').val() !== ''){
+                    selectedDate = $('#ShowreaderDate').val();
+                }
+                
+                 $.ajax({ 
+                           type: "GET",
+                           crossDomain: true,
+                           dataType: "jsonp",
+                           url: "http://turing.une.edu.au/~srallaba/CodeIgniter5/index.php/api/Api_53/reader?date=" + selectedDate,                                            success: function (result) {
+                        if (jQuery.isEmptyObject(result)) {
+                            var $tr = $('<tr>').append(
+                               $('<td colspan="4">').text('NO EVENTS FOUND')
+                              ).appendTo('#result_table_reader tbody');
+                        }
+                        else {
+                            var foundevents = result['result_display'];
+                            if(foundevents === 'No record found !'){
+                                  var $tr = $('<tr>').append(
+                                   $('<td colspan="4">').text('NO EVENTS FOUND')
+                                   ).appendTo('#result_table_reader tbody');
+                            }
+                            else{
+                                $.each(foundevents, function (i, item) {
+                                var row = '<tr>';
+                                row += '<td>' + item.reader_name + '</td>';
+                                row += '<td>' +  item.leaves + '</td>';
+                                row += '<td>' + item.enters+ '</td>';
+                                row += '</tr>';
+                            
+                                ddl.append(row);
+                                });
+                        }}
+                              $('#spinner_reader').hide();  
+                    }
+                    
+                });
+            });
+           
+           
+           $(function() {
+    $.each(response, function(i, item) {
+        $('<tr>').append(
+            $('<td>').text(item.rank),
+            $('<td>').text(item.content),
+            $('<td>').text(item.UID)
+        ).appendTo('#records_table');
+         //$('#records_table').append($tr);
+        //console.log($tr.wrap('<p>').html());
+    });
+});
+       
+              });
+           
+       
+        </script>
+       
