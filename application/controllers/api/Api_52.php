@@ -51,22 +51,7 @@ $data['result_display'] = "No record found !";
  $this->response($data); 
        }
     
-//Post: method for antenna report in shed_52    
-  public function antenna_report_post(){   
-$date = $this->input->post('date');
-if ($date != "") {
-$result = $this->Chook_model->show_antenna_data_by_date_52($date);
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-} else {
-    $data['date_error_message'] = "Date field is required";
-}    
-      //post the json response
-     $this->response($data); 
-  }
+
     
 //method for GET shed_52 reader report based on date selection
 //url for reader_report_get method for json result   
@@ -96,23 +81,7 @@ $data['result_display'] = "No record found !";
       $this->response($data); 
        }
     
- //Post: method for reader report in shed_52    
-public function reader_report_post(){
-$date = $this->input->post('date'); 
-if ($date != "") {
-$result = $this->Chook_model->show_reader_data_by_date_52($date);
 
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-} else {
-    $data['date_error_message'] = "Date field is required";
-}  
-     //finally it displays json response
-    $this->response($data); 
- }
     
     
 //method for GET shed_52 epc report of top 20 records
@@ -134,18 +103,7 @@ return 'Database is empty !';
         $this->response($data); 
 }
      
-//post: method for epc   
-    public function epc_report_post() {
-$result = $this->Chook_model->show_epc_data_52();
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-return 'Database is empty !';
-}
-//$data['show_table'] = $this->view_table();
-        $this->response($data); 
-//$this->load->view('shed_53/index', $data);
-}
+
     
    // public function epc_get(){
           // $r = $this->Chook_model->show_epc_data();
